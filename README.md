@@ -91,8 +91,7 @@
   width="70" 
   loading="lazy" 
   title="Gunung Bromo"
-></i>
-</i>
+>
             </div>
             
             <!-- Badge Update -->
