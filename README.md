@@ -139,7 +139,7 @@
             
             // Tunggu durasi animasi keluar (500ms) sebelum berpindah ke index.html
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = 'home.html';
             }, 500);
         }
     </script></body>
