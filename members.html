@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Alqudwah 0.1</title>
+    <title>Members I Alqudwah</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -99,9 +99,41 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* --- STYLE KHUSUS BAGIAN COKLAT & WHEEL PICKER --- */
+        .year-scroll-container {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            cursor: grab;
+        }
+        .year-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        .year-item {
+            scroll-snap-align: center;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        .role-switch-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .role-indicator {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            width: calc(50% - 4px);
+            background-color: #3c2a2a;
+            border-radius: 9999px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
-<!-- Kelas page-transition mengawali halaman dengan opacity 0 -->
 <body class="antialiased overflow-x-hidden relative page-transition">
 
     <nav class="fixed top-6 left-0 right-0 z-50 px-4 max-w-7xl mx-auto">
@@ -110,13 +142,7 @@
             <!-- Logo & Title -->
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full border border-brand-orange flex items-center justify-center text-brand-orange">
-                    <img 
-  src="logo.png" 
-  alt="Pemandangan gunung saat matahari terbit" 
-  width="70" 
-  loading="lazy" 
-  title="Gunung Bromo"
-></i>
+                    <img src="logo.png" alt="Logo" width="70" loading="lazy" title="Alqudwah">
                 </div>
                 <div class="flex flex-col leading-none justify-center">
                     <span class="font-bold text-black text-lg tracking-tight">ALQUDWAH</span>
@@ -164,7 +190,7 @@
 
             <!-- CTA Button -->
             <button class="border border-brand-orange text-brand-orange px-5 py-1.5 rounded-full text-xs font-bold hover:bg-brand-orange hover:text-white transition-all flex items-center gap-2">
-                <i href="donate.html" class="fa-solid fa-hand-holding-heart text-sm"></i> Donasi
+                <i class="fa-solid fa-hand-holding-heart text-sm"></i> Donasi
             </button>
         </div>
     </nav>
@@ -205,156 +231,76 @@
                 </p>
                 
                 <div class="flex flex-wrap gap-4 mt-3">
-    <button class="bg-brand-orange text-white px-7 py-3 rounded-full text-sm font-bold hover:bg-orange-500 hover:-translate-y-0.5 transition-all shadow-[0_5px_15px_rgba(243,169,83,0.3)]">
-        Detail Update
-    </button>
+                    <button class="bg-brand-orange text-white px-7 py-3 rounded-full text-sm font-bold hover:bg-orange-500 hover:-translate-y-0.5 transition-all shadow-[0_5px_15px_rgba(243,169,83,0.3)]">
+                        Detail Update
+                    </button>
 
-    <!-- Tombol Jelajahi Update (Sudah Diperbaiki) -->
-    <a href="update.html" class="inline-block bg-white text-black border-2 border-black px-7 py-3 rounded-full text-sm font-bold hover:bg-gray-50 hover:-translate-y-0.5 transition-all text-center">
-        Jelajahi Update
-    </a>
-</div>
+                    <a href="update.html" class="inline-block bg-white text-black border-2 border-black px-7 py-3 rounded-full text-sm font-bold hover:bg-gray-50 hover:-translate-y-0.5 transition-all text-center">
+                        Jelajahi Update
+                    </a>
+                </div>
             </div>
 
             <div class="flex justify-center items-center relative z-10 hidden md:flex">
-                <img 
-  src="logo.png" 
-  alt="Pemandangan gunung saat matahari terbit" 
-  width="350" 
-  loading="lazy" 
-  title="Gunung Bromo"
->
+                <img src="logo.png" alt="Logo" width="350" loading="lazy" title="Alqudwah">
             </div>
         </div>
     </header>
 
     <!-- Konten Utama -->
     <main class="relative z-10 w-full flex flex-col bg-transparent">
-        <section class="bg-brand-dark layered-curve text-white pt-24 pb-20 md:pt-32 md:pb-24 px-6 flex flex-col items-center justify-center text-center">
-            <h2 class="text-2xl md:text-[28px] font-bold mb-5 tracking-wide z-10 relative">Ringkasan</h2>
-            <p class="text-base md:text-lg font-medium max-w-2xl text-white z-10 relative">
-                Dengan ini kami mempersembahkan Alqudwah kepada dunia luas
-            </p>
-        </section>
+        
+        <!-- BAGIAN COKLAT (SESI PILIH TAHUN & SWITCH ANGGOTA / PENGURUS) -->
+        <section class="bg-brand-dark layered-curve text-white pt-24 pb-16 md:pt-32 md:pb-20 px-6 flex flex-col items-center justify-center text-center">
+            
+            <!-- Pemilih Tahun Berputar Seamless (Infinite Wheel Picker) -->
+            <div class="w-full max-w-xl relative flex items-center justify-center mb-8">
+                <div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none"></div>
 
-        <section class="bg-[#f6f7f9] py-20 px-6">
-            <div class="max-w-5xl mx-auto flex flex-col items-center">
-                <h2 class="text-2xl md:text-3xl font-black text-black mb-2">Akses Cepat</h2>
-                <p class="text-black text-xs md:text-sm text-center font-medium mb-12">
-                    Portal Utama yang akan membawa mu ke jalan yang lebih baik.
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full">
-                    <div class="bg-white rounded-[2.5rem] p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col items-center text-center hover:-translate-y-1.5 transition-transform duration-300">
-                        <div class="w-[60px] h-[60px] rounded-full bg-red-50 flex items-center justify-center mb-5 text-red-500 text-2xl">
-                            <i class="fa-solid fa-book"></i>
-                        </div>
-                        <h3 class="font-black text-[17px] mb-3 text-black">Program</h3>
-                        <p class="text-[10px] text-black font-medium leading-relaxed">
-                            Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota
-                        </p>
-                    </div>
-
-                    <div class="bg-white rounded-[2.5rem] p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col items-center text-center hover:-translate-y-1.5 transition-transform duration-300">
-                        <div class="w-[60px] h-[60px] rounded-full bg-purple-50 flex items-center justify-center mb-5 text-purple-500 text-2xl">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </div>
-                        <h3 class="font-black text-[17px] mb-3 text-black">Store</h3>
-                        <p class="text-[10px] text-black font-medium leading-relaxed">
-                            Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota
-                        </p>
-                    </div>
-
-                    <div class="bg-white rounded-[2.5rem] p-8 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col items-center text-center hover:-translate-y-1.5 transition-transform duration-300">
-                        <div class="w-[60px] h-[60px] rounded-full bg-green-50 flex items-center justify-center mb-5 text-green-500 text-2xl">
-                            <i class="fa-solid fa-cube"></i>
-                        </div>
-                        <h3 class="font-black text-[17px] mb-3 text-black">Portal Anggota</h3>
-                        <p class="text-[10px] text-black font-medium leading-relaxed">
-                            Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota Portal Anggota
-                        </p>
-                    </div>
+                <div id="yearContainer" class="year-scroll-container flex items-center gap-8 py-2 px-[50%] w-full">
                 </div>
             </div>
-        </section>
 
-        <section class="bg-[#fcfaf7] py-16 px-6">
-            <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-around items-center gap-10">
-                <div class="text-center">
-                    <div class="counter-anim text-4xl md:text-[44px] font-black text-brand-orange mb-1" data-target="123">123</div>
-                    <div class="text-[17px] font-black text-black">Anggota</div>
-                </div>
-                <div class="text-center">
-                    <div class="counter-anim text-4xl md:text-[44px] font-black text-brand-orange mb-1" data-target="12">12</div>
-                    <div class="text-[17px] font-black text-black">Pembina</div>
-                </div>
-                <div class="text-center">
-                    <div class="counter-anim text-4xl md:text-[44px] font-black text-brand-orange mb-1" data-target="4">4</div>
-                    <div class="text-[17px] font-black text-black">Jenjang Pembina</div>
-                </div>
+            <!-- Tombol Switch Pill Anggota / Pengurus -->
+            <div class="role-switch-container w-72 h-12 rounded-full p-1 flex items-center justify-between relative shadow-inner">
+                <div id="roleIndicator" class="role-indicator left-1"></div>
+
+                <button id="btnAnggota" onclick="switchRole('anggota')" class="relative z-10 w-1/2 h-full text-xs md:text-sm font-extrabold tracking-wide text-white transition-colors duration-300 focus:outline-none">
+                    Anggota
+                </button>
+
+                <button id="btnPengurus" onclick="switchRole('pengurus')" class="relative z-10 w-1/2 h-full text-xs md:text-sm font-extrabold tracking-wide text-white/70 hover:text-white transition-colors duration-300 focus:outline-none">
+                    Pengurus
+                </button>
             </div>
+
         </section>
 
-        <section class="bg-white py-24 px-6">
-            <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
-                <h2 class="text-2xl md:text-3xl font-black text-black mb-8">Ringkasan</h2>
-                <p class="text-[15px] md:text-[17px] text-black font-medium leading-[1.6]">
-                    Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan Ringkasan
-                </p>
-            </div>
-        </section>
-
-        <section class="bg-[#f6f7f9] py-20 px-6">
-            <div class="max-w-[1000px] mx-auto">
-                <h2 class="text-2xl md:text-3xl font-black text-black mb-12 text-center">Ikuti Kami!</h2>
+        <!-- ========================================================================= -->
+        <!-- BAGIAN DI BAWAH COKLAT (PUTIH BLANK 4 TAB PROFIL ANGGOTA & PENGURUS)     -->
+        <!-- ========================================================================= -->
+        <section class="bg-white py-20 px-6 min-h-[600px] flex items-center justify-center">
+            <div class="max-w-6xl mx-auto w-full">
                 
-                <div class="flex flex-col gap-8">
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-[50px] h-[50px] rounded-full border border-gray-300 overflow-hidden flex items-center justify-center bg-white shadow-sm">
-                                <img 
-  src="logo.png" 
-  alt="Pemandangan gunung saat matahari terbit" 
-  width="50" 
-  loading="lazy" 
-  title="Gunung Bromo"
-></i>
-                            </div>
-                            <span class="text-black font-medium text-[15px]">alqudwah_dalwa</span>
-                        </div>
-                        <a href="https://www.instagram.com/alqudwah_dalwa/" target="_blank" class="border-2 border-black text-black px-6 py-1.5 rounded-full text-sm font-bold hover:bg-gray-100 transition-colors">
-                            Follow
-                        </a>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <a href="https://www.instagram.com/alqudwah_dalwa/" target="_blank" class="group aspect-[4/5] rounded-3xl border-2 border-gray-200 bg-white shadow-sm overflow-hidden relative block">
-                            <img src="https://placehold.co/400x500/f3a953/ffffff?text=Postingan+Instagram+1\n(Gambar+Placeholder)" alt="Instagram Post 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-5 text-white">
-                                <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-heart text-xl"></i> 142</span>
-                                <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-comment text-xl"></i> 18</span>
-                            </div>
-                        </a>
-                        
-                        <a href="https://www.instagram.com/alqudwah_dalwa/" target="_blank" class="group aspect-[4/5] rounded-3xl border-2 border-gray-200 bg-white shadow-sm overflow-hidden relative block">
-                             <img src="https://placehold.co/400x500/d1b199/3c2a2a?text=Postingan+Instagram+2\n(Gambar+Placeholder)" alt="Instagram Post 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-5 text-white">
-                                <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-heart text-xl"></i> 256</span>
-                                <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-comment text-xl"></i> 24</span>
-                            </div>
-                        </a>
-                        
-                        <a href="https://www.instagram.com/alqudwah_dalwa/" target="_blank" class="group aspect-[4/5] rounded-3xl border-2 border-gray-200 bg-white shadow-sm overflow-hidden relative block">
-                             <img src="https://placehold.co/400x500/3c2a2a/ffffff?text=Postingan+Instagram+3\n(Gambar+Placeholder)" alt="Instagram Post 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-5 text-white">
-                                <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-heart text-xl"></i> 310</span>
-                                <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-comment text-xl"></i> 45</span>
-                            </div>
-                        </a>
-                    </div>
+                <!-- Judul Keterangan Tahun & Peran Aktif -->
+                <div class="text-center mb-16">
+                    <h2 id="membersDisplayTitle" class="text-3xl md:text-4xl font-black text-black tracking-tight mb-2">
+                        Daftar Anggota (2026)
+                    </h2>
+                    <p id="membersDisplaySub" class="text-gray-500 text-sm font-medium">
+                        Profil & kepengurusan resmi Alqudwah pada periode yang dipilih.
+                    </p>
                 </div>
+
+                <!-- Grid 4 Tab Profil Orang-Orang -->
+                <div id="profilesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Kartu-kartu profil akan diperbarui secara otomatis via JavaScript -->
+                </div>
+
             </div>
         </section>
+        <!-- ========================================================================= -->
 
         <footer class="bg-[#171717] text-[#9ca3af] py-16 px-6 relative z-10 overflow-hidden">
             <div class="absolute inset-0 pointer-events-none opacity-[0.03]">
@@ -370,13 +316,7 @@
                 <div class="md:col-span-5 flex flex-col gap-4">
                     <div class="flex items-center gap-3 mb-1">
                         <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#171717]">
-                            <img 
-  src="logo.png" 
-  alt="Pemandangan gunung saat matahari terbit" 
-  width="50" 
-  loading="lazy" 
-  title="Gunung Bromo"
-></i>
+                            <img src="logo.png" alt="Logo" width="50" loading="lazy">
                         </div>
                         <span class="font-extrabold text-white text-[19px] tracking-wide">AL-QUDWAH</span>
                     </div>
@@ -454,81 +394,210 @@
         </div>
     </div>
 
+    <!-- Script Pengendali Data Dinamis 4 Tab Orang Berdasarkan Tahun & Peran -->
     <script>
+        const baseYears = Array.from({length: 11}, (_, i) => 2020 + i);
+        let selectedYear = '2026';
+        let selectedRole = 'anggota';
+
+        // DATABASE DINAMIS UNTUK ANGGOTA & PENGURUS BERDASARKAN TAHUN
+        const peopleDatabase = {
+            '2020': {
+                'anggota': [
+                    { name: 'Andika', role: 'Anggota Aktif', desc: 'Angkatan 2020 - Divisi Keagamaan', img: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Najib', role: 'Anggota Aktif', desc: 'Angkatan 2020 - Divisi Humas', img: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Fikri', role: 'Anggota Senior', desc: 'Angkatan 2020 - Divisi Seni', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Rizal', role: 'Anggota Senior', desc: 'Angkatan 2020 - Divisi Pendidikan', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80' }
+                ],
+                'pengurus': [
+                    { name: 'Ust. Abdullah', role: 'Ketua Umum 2020', desc: 'Penanggung Jawab Organisasi 2020', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Hasan Basri', role: 'Sekretaris 2020', desc: 'Administrasi & Arsip 2020', img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Ahmad Dahlan', role: 'Bendahara 2020', desc: 'Keuangan & Operasional 2020', img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Zaenal Abidin', role: 'Koordinator 2020', desc: 'Pengawas Kegiatan 2020', img: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=400&auto=format&fit=crop&q=80' }
+                ]
+            },
+            '2021': {
+                'anggota': [
+                    { name: 'Jamal', role: 'Anggota Utama', desc: 'Angkatan 2021 - Divisi Logistik', img: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Suep', role: 'Anggota Utama', desc: 'Angkatan 2021 - Divisi IT & Konsumsi', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Hamzah', role: 'Anggota Aktif', desc: 'Angkatan 2021 - Divisi Dokumentasi', img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Bilal', role: 'Anggota Aktif', desc: 'Angkatan 2021 - Divisi Kebersihan', img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&auto=format&fit=crop&q=80' }
+                ],
+                'pengurus': [
+                    { name: 'Ust. Mahmud', role: 'Ketua Umum 2021', desc: 'Penanggung Jawab Periode 2021', img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Fathur', role: 'Wakil Ketua 2021', desc: 'Pendamping Manajemen 2021', img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Lukman', role: 'Sekretaris 2021', desc: 'Kepala Sekretariat 2021', img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80' },
+                    { name: 'Mustofa', role: 'Bendahara 2021', desc: 'Pengelola Anggaran 2021', img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=80' }
+                ]
+            }
+        };
+
+        // Fungsi Render 4 Profil Orang
+        function renderProfiles() {
+            const titleEl = document.getElementById('membersDisplayTitle');
+            const gridEl = document.getElementById('profilesGrid');
+            const subEl = document.getElementById('membersDisplaySub');
+
+            const roleText = selectedRole === 'anggota' ? 'Anggota' : 'Pengurus';
+            titleEl.innerText = `Daftar ${roleText} (${selectedYear})`;
+            subEl.innerText = `Profil & data kepengurusan resmi Alqudwah pada tahun ${selectedYear}.`;
+
+            // Ambil data spesifik atau gunakan fallback data default
+            let currentList = [];
+            if (peopleDatabase[selectedYear] && peopleDatabase[selectedYear][selectedRole]) {
+                currentList = peopleDatabase[selectedYear][selectedRole];
+            } else {
+                // Fallback default jika tahun lain dipilih
+                for (let i = 1; i <= 4; i++) {
+                    currentList.push({
+                        name: `${roleText} ${i} (${selectedYear})`,
+                        role: selectedRole === 'anggota' ? 'Anggota Aktif' : 'Pengurus Harian',
+                        desc: `Kader Alqudwah periode tahun ${selectedYear}`,
+                        img: `https://images.unsplash.com/photo-${1500000000000 + (i * 10000)}?w=400&auto=format&fit=crop&q=80`
+                    });
+                }
+            }
+
+            // Render ke HTML Grid
+            gridEl.innerHTML = currentList.map(person => `
+                <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col items-center text-center group">
+                    <div class="w-32 h-32 rounded-full overflow-hidden mb-5 border-4 border-orange-100 group-hover:border-brand-orange transition-colors duration-300 shadow-sm">
+                        <img src="${person.img}" alt="${person.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/400x400/f3a953/ffffff?text=Alqudwah'">
+                    </div>
+                    <h3 class="font-extrabold text-black text-lg mb-1">${person.name}</h3>
+                    <span class="inline-block bg-orange-100/80 text-brand-orange text-[11px] font-bold px-3 py-1 rounded-full mb-3">
+                        ${person.role}
+                    </span>
+                    <p class="text-gray-500 text-xs font-medium leading-relaxed">
+                        ${person.desc}
+                    </p>
+                </div>
+            `).join('');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             
-            // ==========================================
-            // LOGIKA FADE-IN & FADE-OUT NAVIGASI TAB/HALAMAN
-            // ==========================================
-            
-            // 1. Fade-In saat halaman / tab pertama kali dimuat
+            // LOGIKA WHEEL PICKER TAHUN
+            const yearContainer = document.getElementById('yearContainer');
+            const infiniteYears = [...baseYears, ...baseYears, ...baseYears];
+
+            infiniteYears.forEach((year, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `year-item text-lg md:text-xl font-bold transition-all duration-300 py-1 px-3 rounded-lg focus:outline-none`;
+                btn.innerText = year;
+                btn.dataset.year = year;
+                btn.dataset.index = idx;
+                
+                btn.addEventListener('click', () => {
+                    scrollToYearElement(btn);
+                });
+                
+                yearContainer.appendChild(btn);
+            });
+
+            function updateYearStyles() {
+                const containerRect = yearContainer.getBoundingClientRect();
+                const containerCenter = containerRect.left + containerRect.width / 2;
+                const items = yearContainer.querySelectorAll('.year-item');
+
+                let closestItem = null;
+                let minDistance = Infinity;
+
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    const itemCenter = rect.left + rect.width / 2;
+                    const distance = Math.abs(containerCenter - itemCenter);
+
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestItem = item;
+                    }
+
+                    const maxDist = containerRect.width / 2;
+                    let opacity = 1 - (distance / maxDist);
+                    opacity = Math.max(0.15, Math.min(1, opacity));
+
+                    item.style.opacity = opacity;
+                    item.style.transform = `scale(${1 - (distance / maxDist) * 0.2})`;
+
+                    if (distance < 30) {
+                        item.classList.add('text-brand-orange', 'font-black', 'scale-125');
+                        item.classList.remove('text-white/70');
+                    } else {
+                        item.classList.remove('text-brand-orange', 'font-black', 'scale-125');
+                        item.classList.add('text-white/70');
+                    }
+                });
+
+                if (closestItem && closestItem.dataset.year !== selectedYear) {
+                    selectedYear = closestItem.dataset.year;
+                    renderProfiles(); // Perbarui profil saat tahun berganti
+                }
+            }
+
+            function scrollToYearElement(el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+
+            yearContainer.addEventListener('scroll', () => {
+                updateYearStyles();
+
+                const maxScroll = yearContainer.scrollWidth - yearContainer.clientWidth;
+                if (yearContainer.scrollLeft <= 10) {
+                    yearContainer.scrollLeft = maxScroll / 3;
+                } else if (yearContainer.scrollLeft >= maxScroll - 10) {
+                    yearContainer.scrollLeft = maxScroll / 3;
+                }
+            });
+
+            setTimeout(() => {
+                const targetInitial = Array.from(yearContainer.querySelectorAll('.year-item'))
+                    .find(el => el.dataset.year == '2026' && el.dataset.index >= baseYears.length);
+                if (targetInitial) {
+                    targetInitial.scrollIntoView({ block: 'nearest', inline: 'center' });
+                    updateYearStyles();
+                }
+            }, 100);
+
+            // Drag Mouse untuk Wheel
+            let isDown = false, startX, scrollLeftPos;
+            yearContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                yearContainer.style.cursor = 'grabbing';
+                startX = e.pageX - yearContainer.offsetLeft;
+                scrollLeftPos = yearContainer.scrollLeft;
+            });
+            yearContainer.addEventListener('mouseleave', () => { isDown = false; yearContainer.style.cursor = 'grab'; });
+            yearContainer.addEventListener('mouseup', () => { isDown = false; yearContainer.style.cursor = 'grab'; });
+            yearContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - yearContainer.offsetLeft;
+                const walk = (x - startX) * 2;
+                yearContainer.scrollLeft = scrollLeftPos - walk;
+            });
+
+            // Transisi Halaman
             requestAnimationFrame(() => {
                 document.body.classList.add('page-visible');
             });
 
-            // 2. Intercept semua tautan/tombol navigasi untuk Fade-Out sebelum berpindah
             const allLinks = document.querySelectorAll('a[href]');
             allLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     const href = link.getAttribute('href');
-
-                    // Lewati tautan internal/anchor (#), target new tab (_blank), atau javascript
                     if (!href || href === '#' || href.startsWith('#') || link.getAttribute('target') === '_blank' || href.startsWith('javascript:')) {
                         return;
                     }
-
-                    // Tahan navigasi sebentar
                     e.preventDefault();
-
-                    // Jalankan efek Fade-Out (menghilangkan kelas page-visible)
                     document.body.classList.remove('page-visible');
-
-                    // Pindah lokasi setelah transisi fade-out selesai (400ms)
                     setTimeout(() => {
                         window.location.href = href;
                     }, 400);
                 });
             });
 
-            // ==========================================
-            // LOGIKA COUNTER ANIMATION
-            // ==========================================
-            const counters = document.querySelectorAll('.counter-anim');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target;
-                        if (el.classList.contains('animated')) return;
-                        el.classList.add('animated');
-                        
-                        const targetStr = el.getAttribute('data-target');
-                        const duration = 1500;
-                        const interval = 50;
-                        const steps = duration / interval;
-                        let currentStep = 0;
-                        
-                        const timer = setInterval(() => {
-                            currentStep++;
-                            if (currentStep >= steps) {
-                                clearInterval(timer);
-                                el.innerText = targetStr;
-                            } else {
-                                let randomStr = '';
-                                for(let i = 0; i < targetStr.length; i++) {
-                                    randomStr += Math.floor(Math.random() * 10);
-                                }
-                                el.innerText = randomStr;
-                            }
-                        }, interval);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            counters.forEach(counter => observer.observe(counter));
-
-            // ==========================================
-            // LOGIKA CHATBOT GEMINI AI
-            // ==========================================
+            // Chatbot Gemini AI
             const chatToggle = document.getElementById('chatbot-toggle');
             const chatWindow = document.getElementById('chatbot-window');
             const chatClose = document.getElementById('chatbot-close');
@@ -548,7 +617,7 @@
             });
 
             let chatHistory = [];
-            const systemPrompt = "Anda adalah Asisten Virtual cerdas untuk website ALQUDWAH (Ahlul Qurra' Darullughah Wadda'wah). Organisasi ini adalah lembaga pencetak generasi Qur'ani yang berwawasan luas dan berakhlak mulia, berlokasi di Jl. Raya Raci No. 51, Bangil, Pasuruan. Anda harus menjawab pertanyaan pengunjung website dengan sangat ramah, sopan, antusias, dan menggunakan bahasa Indonesia yang baik. Berikan jawaban yang ringkas namun informatif. Jika ditanya hal di luar konteks pendidikan, Al-Quran, atau pesantren, tolak dengan halus dan arahkan kembali ke topik Alqudwah.";
+            const systemPrompt = "Anda adalah Asisten Virtual cerdas untuk website ALQUDWAH. Jawab dengan ramah dan sopan.";
 
             function appendMessage(text, sender) {
                 const msgDiv = document.createElement('div');
@@ -563,75 +632,67 @@
                 }
                 
                 msgDiv.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-                
                 chatMessages.appendChild(msgDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-
-            function showLoading() {
-                const id = 'loading-' + Date.now();
-                const msgDiv = document.createElement('div');
-                msgDiv.id = id;
-                msgDiv.classList.add('bg-white', 'p-3', 'rounded-2xl', 'rounded-tl-sm', 'shadow-sm', 'border', 'border-gray-100', 'w-[max-content]', 'self-start', 'flex', 'gap-1.5', 'items-center', 'py-4');
-                msgDiv.innerHTML = `
-                    <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></span>
-                    <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.15s"></span>
-                    <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
-                `;
-                chatMessages.appendChild(msgDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                return id;
             }
 
             async function handleSendMessage() {
                 const text = chatInput.value.trim();
                 if (!text) return;
-
                 appendMessage(text, 'user');
                 chatInput.value = '';
-                
-                const loadingId = showLoading();
                 chatHistory.push({ role: "user", parts: [{ text: text }] });
-
                 try {
                     const apiKey = ""; 
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-                    
-                    const payload = {
-                        contents: chatHistory,
-                        systemInstruction: { parts: [{ text: systemPrompt }] }
-                    };
-
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ contents: chatHistory, systemInstruction: { parts: [{ text: systemPrompt }] } })
                     });
-
                     const result = await response.json();
-                    
-                    document.getElementById(loadingId)?.remove();
-
                     if (result.candidates && result.candidates.length > 0) {
                         const reply = result.candidates[0].content.parts[0].text;
                         appendMessage(reply, 'model');
                         chatHistory.push({ role: "model", parts: [{ text: reply }] });
-                    } else {
-                        appendMessage("Maaf, saya tidak dapat memahami permintaan tersebut saat ini.", 'error');
                     }
                 } catch (error) {
-                    document.getElementById(loadingId)?.remove();
-                    appendMessage("Gagal terhubung ke AI server. Silakan coba beberapa saat lagi.", 'error');
+                    appendMessage("Gagal terhubung ke server.", 'error');
                 }
             }
 
             chatSend.addEventListener('click', handleSendMessage);
             chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleSendMessage();
-                }
+                if (e.key === 'Enter') handleSendMessage();
             });
+
+            // Initial render profil
+            renderProfiles();
         });
+
+        // FUNGSI SWITCH ROLE (ANGGOTA / PENGURUS)
+        function switchRole(role) {
+            selectedRole = role;
+            const indicator = document.getElementById('roleIndicator');
+            const btnAnggota = document.getElementById('btnAnggota');
+            const btnPengurus = document.getElementById('btnPengurus');
+
+            if (role === 'anggota') {
+                indicator.style.transform = 'translateX(0)';
+                btnAnggota.classList.add('text-white');
+                btnAnggota.classList.remove('text-white/70');
+                btnPengurus.classList.add('text-white/70');
+                btnPengurus.classList.remove('text-white');
+            } else {
+                indicator.style.transform = 'translateX(100%)';
+                btnPengurus.classList.add('text-white');
+                btnPengurus.classList.remove('text-white/70');
+                btnAnggota.classList.add('text-white/70');
+                btnAnggota.classList.remove('text-white');
+            }
+
+            renderProfiles(); // Perbarui profil saat role berganti
+        }
     </script>
 </body>
 </html>
