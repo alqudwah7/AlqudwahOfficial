@@ -111,12 +111,12 @@
             <div class="flex items-center gap-3">
                 <div class="w-8 h-8 rounded-full border border-brand-orange flex items-center justify-center text-brand-orange">
                     <img 
-  src="logo.png" 
-  alt="Pemandangan gunung saat matahari terbit" 
-  width="70" 
-  loading="lazy" 
-  title="Gunung Bromo"
-></i>
+                      src="logo.png" 
+                      alt="Pemandangan gunung saat matahari terbit" 
+                      width="70" 
+                      loading="lazy" 
+                      title="Gunung Bromo"
+                    >
                 </div>
                 <div class="flex flex-col leading-none justify-center">
                     <span class="font-bold text-black text-lg tracking-tight">ALQUDWAH</span>
@@ -156,7 +156,7 @@
         </div>
     </nav>
 
-    <!-- Header Sticky Hero (Tanpa Logo di Sisi Kanan) -->
+    <!-- Header Sticky Hero -->
     <header class="sticky top-0 h-[60vh] w-full bg-white flex items-center overflow-hidden -z-0">
         <div class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
             <div class="absolute top-[5%] left-[5%] w-[450px] h-[450px] bg-brand-orange/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
@@ -165,7 +165,7 @@
         </div>
 
         <div class="absolute right-0 top-0 w-[55vw] h-full overflow-hidden pointer-events-none">
-             <div class="absolute top-1/2 right-0 -translate-y-1/2 w-[130vh] h-[130vh] bg-brand-light rounded-full translate-x-[35%]"></div>
+             <div class="absolute top-1/2 right-0 -translate-y-1/2 w-[130vh] h-[130vh] bg-brand-light rounded-full translate-x-[35%]" style="z-index: 0;"></div>
         </div>
 
         <div class="max-w-4xl mx-auto px-6 w-full flex flex-col items-center text-center relative z-10 pt-16">
@@ -182,7 +182,7 @@
             </h1>
             
             <p class="text-black font-normal text-[15px] md:text-base max-w-lg leading-[1.6]">
-                Karya kami berharga,tapi harga tak selamanya karya.
+                Karya kami berharga, tapi harga tak selamanya karya.
             </p>
         </div>
     </header>
@@ -196,12 +196,156 @@
             </p>
         </section>
 
+        <!-- Sesi TShirt (Katalog Produk) -->
         <section class="bg-[#f6f7f9] py-20 px-6">
-            <div class="max-w-5xl mx-auto flex flex-col items-center">
-                <h2 class="text-2xl md:text-3xl font-black text-black mb-2">TShirt</h2>
-                <p class="text-black text-xs md:text-sm text-center font-medium mb-12">
-                    Produk Kaos TShirt dari alqudwah
-                </p>
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col items-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-black text-black mb-2">TShirt</h2>
+                    <p class="text-black text-xs md:text-sm text-center font-medium">
+                        Produk Kaos TShirt dari Alqudwah
+                    </p>
+                </div>
+
+                <!-- Grid Produk TShirt (Responsif) -->
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    
+                    <!-- Produk 1 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <!-- Foto Produk & Label -->
+                            <div class="relative aspect-square overflow-hidden bg-gray-100">
+                                <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=80" alt="TShirt 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow">
+                                    20% OFF
+                                </span>
+                            </div>
+                            <!-- Detail Produk -->
+                            <div class="p-4">
+                                <span class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">T-Shirt</span>
+                                <h3 class="font-bold text-sm text-gray-800 line-clamp-2 mt-1 mb-2 group-hover:text-brand-orange transition-colors">
+                                    Kaos Eksklusif Alqudwah Official Edition
+                                </h3>
+                                <!-- Harga -->
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <span class="text-brand-orange font-black text-base md:text-lg">Rp 95.000</span>
+                                    <span class="text-gray-400 text-xs line-through">Rp 120.000</span>
+                                </div>
+                                <!-- Rating & Terjual -->
+                                <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                                    <div class="flex items-center gap-1 text-yellow-500">
+                                        <i class="fa-solid fa-star text-[10px]"></i>
+                                        <span class="font-bold text-gray-700">4.9</span>
+                                    </div>
+                                    <span>Terjual 150+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tombol Aksi -->
+                        <div class="p-4 pt-0">
+                            <button onclick="alert('Produk ditambahkan ke keranjang!')" class="w-full bg-brand-orange text-white py-2.5 rounded-xl text-xs font-bold hover:bg-orange-500 transition-colors shadow-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-shopping"></i> + Keranjang
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produk 2 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative aspect-square overflow-hidden bg-gray-100">
+                                <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&auto=format&fit=crop&q=80" alt="TShirt 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-2 left-2 bg-brand-dark text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow">
+                                    Terlaris
+                                </span>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">T-Shirt</span>
+                                <h3 class="font-bold text-sm text-gray-800 line-clamp-2 mt-1 mb-2 group-hover:text-brand-orange transition-colors">
+                                    T-Shirt Casual Hitam Premium Katun Combed
+                                </h3>
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <span class="text-brand-orange font-black text-base md:text-lg">Rp 100.000</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                                    <div class="flex items-center gap-1 text-yellow-500">
+                                        <i class="fa-solid fa-star text-[10px]"></i>
+                                        <span class="font-bold text-gray-700">4.8</span>
+                                    </div>
+                                    <span>Terjual 320+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="alert('Produk ditambahkan ke keranjang!')" class="w-full bg-brand-orange text-white py-2.5 rounded-xl text-xs font-bold hover:bg-orange-500 transition-colors shadow-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-shopping"></i> + Keranjang
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produk 3 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative aspect-square overflow-hidden bg-gray-100">
+                                <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=500&auto=format&fit=crop&q=80" alt="TShirt 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">T-Shirt</span>
+                                <h3 class="font-bold text-sm text-gray-800 line-clamp-2 mt-1 mb-2 group-hover:text-brand-orange transition-colors">
+                                    Kaos Polos Cotton Nyaman Desain Simpel
+                                </h3>
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <span class="text-brand-orange font-black text-base md:text-lg">Rp 85.000</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                                    <div class="flex items-center gap-1 text-yellow-500">
+                                        <i class="fa-solid fa-star text-[10px]"></i>
+                                        <span class="font-bold text-gray-700">4.7</span>
+                                    </div>
+                                    <span>Terjual 90+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="alert('Produk ditambahkan ke keranjang!')" class="w-full bg-brand-orange text-white py-2.5 rounded-xl text-xs font-bold hover:bg-orange-500 transition-colors shadow-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-shopping"></i> + Keranjang
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Produk 4 -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative aspect-square overflow-hidden bg-gray-100">
+                                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=80" alt="TShirt 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow">
+                                    10% OFF
+                                </span>
+                            </div>
+                            <div class="p-4">
+                                <span class="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">T-Shirt</span>
+                                <h3 class="font-bold text-sm text-gray-800 line-clamp-2 mt-1 mb-2 group-hover:text-brand-orange transition-colors">
+                                    T-Shirt Special Edition Ahlul Qurra'
+                                </h3>
+                                <div class="flex items-baseline gap-2 mb-2">
+                                    <span class="text-brand-orange font-black text-base md:text-lg">Rp 110.000</span>
+                                    <span class="text-gray-400 text-xs line-through">Rp 125.000</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                                    <div class="flex items-center gap-1 text-yellow-500">
+                                        <i class="fa-solid fa-star text-[10px]"></i>
+                                        <span class="font-bold text-gray-700">5.0</span>
+                                    </div>
+                                    <span>Terjual 210+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="alert('Produk ditambahkan ke keranjang!')" class="w-full bg-brand-orange text-white py-2.5 rounded-xl text-xs font-bold hover:bg-orange-500 transition-colors shadow-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-shopping"></i> + Keranjang
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
       
@@ -220,12 +364,12 @@
                     <div class="flex items-center gap-3 mb-1">
                         <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#171717]">
                             <img 
-  src="logo.png" 
-  alt="Pemandangan gunung saat matahari terbit" 
-  width="50" 
-  loading="lazy" 
-  title="Gunung Bromo"
-></i>
+                              src="logo.png" 
+                              alt="Pemandangan gunung saat matahari terbit" 
+                              width="50" 
+                              loading="lazy" 
+                              title="Gunung Bromo"
+                            >
                         </div>
                         <span class="font-extrabold text-white text-[19px] tracking-wide">AL-QUDWAH</span>
                     </div>
@@ -338,42 +482,6 @@
                     }, 400);
                 });
             });
-
-            // ==========================================
-            // LOGIKA COUNTER ANIMATION
-            // ==========================================
-            const counters = document.querySelectorAll('.counter-anim');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const el = entry.target;
-                        if (el.classList.contains('animated')) return;
-                        el.classList.add('animated');
-                        
-                        const targetStr = el.getAttribute('data-target');
-                        const duration = 1500;
-                        const interval = 50;
-                        const steps = duration / interval;
-                        let currentStep = 0;
-                        
-                        const timer = setInterval(() => {
-                            currentStep++;
-                            if (currentStep >= steps) {
-                                clearInterval(timer);
-                                el.innerText = targetStr;
-                            } else {
-                                let randomStr = '';
-                                for(let i = 0; i < targetStr.length; i++) {
-                                    randomStr += Math.floor(Math.random() * 10);
-                                }
-                                el.innerText = randomStr;
-                            }
-                        }, interval);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            counters.forEach(counter => observer.observe(counter));
 
             // ==========================================
             // LOGIKA CHATBOT GEMINI AI
